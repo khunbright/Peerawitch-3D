@@ -1,12 +1,12 @@
 import Reveal from "../Reveal";
 import Section from "../Section";
-import { experience } from "@/content/profile";
+import type { Content } from "@/content";
 
-export default function Experience() {
+export default function Experience({ c }: { c: Content }) {
   return (
-    <Section id="work" index="03" title="Experience">
+    <Section id="work" index="03" title={c.ui.sections.work}>
       <ol className="relative space-y-12 border-l border-white/10 pl-6 sm:pl-10">
-        {experience.map((job, i) => (
+        {c.experience.map((job, i) => (
           <li key={job.company + job.period} className="relative">
             <span className="absolute -left-[31px] top-2 h-3 w-3 rounded-full bg-sky-400 ring-4 ring-sky-400/15 sm:-left-[47px]" />
 
@@ -17,15 +17,23 @@ export default function Experience() {
               </div>
               <p className="mt-1 text-sky-300">{job.title}</p>
 
+              {/* A role with no named project still gets a card, so it does not
+                  read as a lesser entry than the project-based ones. The job
+                  title above already heads it, so the card carries no header. */}
               {job.highlights && (
-                <ul className="mt-4 space-y-2">
-                  {job.highlights.map((point) => (
-                    <li key={point} className="flex gap-3 text-sm leading-relaxed text-slate-300">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-slate-500" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur transition hover:border-sky-400/40">
+                  <ul className="space-y-2">
+                    {job.highlights.map((point) => (
+                      <li
+                        key={point}
+                        className="flex gap-3 text-sm leading-relaxed text-slate-300"
+                      >
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-slate-500" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
 
               <div className="mt-6 space-y-4">

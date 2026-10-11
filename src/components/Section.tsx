@@ -20,7 +20,7 @@ export default function Section({
             <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
               {title}
             </h2>
-            <span className="h-px flex-1 bg-gradient-to-r from-white/25 to-transparent" />
+            <span className="h-px flex-1 bg-linear-to-r from-white/25 to-transparent" />
           </div>
         </Reveal>
         {children}

@@ -1,14 +1,14 @@
 import Reveal from "../Reveal";
 import Section from "../Section";
-import { certificates, education } from "@/content/profile";
+import type { Content } from "@/content";
 
-export default function Education() {
+export default function Education({ c }: { c: Content }) {
   return (
-    <Section id="education" index="04" title="Education & certificates">
+    <Section id="education" index="04" title={c.ui.sections.education}>
       <div className="grid gap-10 md:grid-cols-2">
         <Reveal>
           <ul className="space-y-5">
-            {education.map((item) => (
+            {c.education.map((item) => (
               <li
                 key={item.school}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur"
@@ -23,7 +23,7 @@ export default function Education() {
 
         <Reveal delay={0.1}>
           <ul className="space-y-3">
-            {certificates.map((cert) => (
+            {c.certificates.map((cert) => (
               <li key={cert} className="flex gap-3 text-sm leading-relaxed text-slate-300">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
                 {cert}

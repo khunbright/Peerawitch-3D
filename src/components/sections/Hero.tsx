@@ -1,9 +1,17 @@
 "use client";
 
 import { motion } from "motion/react";
-import { orbitTags, profile } from "@/content/profile";
+import AnchorLink from "../AnchorLink";
+import { shared, type Content } from "@/content";
 
-export default function Hero() {
+export default function Hero({ c }: { c: Content }) {
+  const { profile, ui } = c;
+
+  // Split on the first space so the surname can sit on its own line on
+  // narrow screens, where the full name would otherwise wrap mid-word.
+  const [givenName, ...restOfName] = profile.name.split(" ");
+  const familyName = restOfName.join(" ");
+
   return (
     <section
       id="home"
@@ -23,9 +31,14 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="mt-6 bg-gradient-to-b from-white via-white to-white/55 bg-clip-text text-5xl font-semibold tracking-tight text-transparent sm:text-7xl"
+          /* bg-clip-text paints the gradient only inside the element's box, so
+             the box has to be tall enough for Thai below-base vowels — at the
+             utilities' default line-height of 1 they fall outside it and
+             vanish. The extra bottom padding covers the deepest marks. */
+          className="mt-6 bg-linear-to-b from-white via-white to-white/55 bg-clip-text pb-[0.14em] text-5xl font-semibold leading-[1.22] tracking-tight text-transparent sm:text-7xl"
         >
-          {profile.name}
+          <span className="block sm:inline">{givenName}</span>
+          {familyName && <span className="block sm:inline"> {familyName}</span>}
         </motion.h1>
 
         <motion.p
@@ -41,27 +54,31 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+          className="mt-10 flex flex-col items-center gap-5"
         >
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <AnchorLink
+              href="#work"
+              className="rounded-full bg-sky-400 px-6 py-3 text-sm font-medium text-slate-950 transition hover:bg-sky-300"
+            >
+              {ui.hero.viewWork}
+            </AnchorLink>
+            <a
+              href={`mailto:${shared.email}`}
+              className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white backdrop-blur transition hover:border-white/50 hover:bg-white/5"
+            >
+              {ui.hero.getInTouch}
+            </a>
+          </div>
+
+          {/* Secondary action, so it sits on its own line below the pair. */}
           <a
-            href="#work"
-            className="rounded-full bg-sky-400 px-6 py-3 text-sm font-medium text-slate-950 transition hover:bg-sky-300"
-          >
-            View my work
-          </a>
-          <a
-            href={`mailto:${profile.email}`}
-            className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white backdrop-blur transition hover:border-white/50 hover:bg-white/5"
-          >
-            Get in touch
-          </a>
-          <a
-            href={profile.resumeUrl}
+            href={shared.resumeUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full px-6 py-3 text-sm font-medium text-slate-400 underline-offset-4 transition hover:text-white hover:underline"
+            className="text-sm font-medium text-slate-400 underline-offset-4 transition hover:text-white hover:underline"
           >
-            Download CV
+            {ui.hero.downloadCv}
           </a>
         </motion.div>
 
@@ -71,7 +88,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-14 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 font-mono text-xs text-slate-400"
         >
-          {orbitTags.map((tag) => (
+          {shared.orbitTags.map((tag) => (
             <li key={tag} className="rounded-full border border-white/10 px-3 py-1">
               {tag}
             </li>
@@ -85,7 +102,7 @@ export default function Hero() {
         transition={{ delay: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs uppercase tracking-[0.25em] text-slate-500"
       >
-        <span className="block animate-bounce">scroll</span>
+        <span className="block animate-bounce">{ui.hero.scroll}</span>
       </motion.div>
     </section>
   );

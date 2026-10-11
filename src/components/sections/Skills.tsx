@@ -1,12 +1,12 @@
 import Reveal from "../Reveal";
 import Section from "../Section";
-import { skills } from "@/content/profile";
+import type { Content } from "@/content";
 
-export default function Skills() {
+export default function Skills({ c }: { c: Content }) {
   return (
-    <Section id="skills" index="02" title="Technical skills">
+    <Section id="skills" index="02" title={c.ui.sections.skills}>
       <div className="grid gap-4 sm:grid-cols-2">
-        {skills.map((group, i) => (
+        {c.skills.map((group, i) => (
           <Reveal key={group.group} delay={i * 0.05}>
             <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition hover:border-sky-400/40">
               <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-sky-400">

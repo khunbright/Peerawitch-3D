@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { pointer, prefersReducedMotion, scroll } from "@/lib/scroll";
+import { lenisRef, pointer, prefersReducedMotion, scroll } from "@/lib/scroll";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     }
 
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenisRef.current = lenis;
 
     lenis.on("scroll", ({ progress, velocity }: { progress: number; velocity: number }) => {
       scroll.progress = progress;
@@ -45,6 +46,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       cancelAnimationFrame(frame);
+      lenisRef.current = null;
       lenis.destroy();
       window.removeEventListener("pointermove", onPointerMove);
     };

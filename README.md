@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio 3D — Peerawitch Lertsuksombut
 
-## Getting Started
+Next.js (App Router) portfolio with a WebGL hero scene that reacts to scroll.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build   # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Everything shown on the page — name, tagline, skills, jobs, projects, education,
+certificates, contact links — lives in **`src/content/profile.ts`**. Change that
+file; no component edits needed.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The downloadable CV is `public/Peerawitch_Lertsuksombut_CV.pdf`
+(linked via `profile.resumeUrl`).
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+| Path | What it is |
+| --- | --- |
+| `src/content/profile.ts` | All site content |
+| `src/components/three/Scene.tsx` | The 3D scene (core, rings, satellites, starfield, camera rig) |
+| `src/components/three/SceneCanvas.tsx` | Fixed background canvas, client-only |
+| `src/components/SmoothScroll.tsx` | Lenis smooth scrolling + scroll/pointer tracking |
+| `src/lib/scroll.ts` | Shared scroll/pointer values the scene reads in `useFrame` |
+| `src/components/sections/*` | Hero, About, Skills, Experience, Education, Contact |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How the 3D reacts to scroll
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Scroll progress and pointer position are written to a plain mutable object
+(`src/lib/scroll.ts`) rather than React state, and the canvas reads it inside
+`useFrame`. That keeps 60fps scrolling from triggering React re-renders.
 
-## Deploy on Vercel
+Scroll drives: camera dolly + arc, core scale, ring tilt.
+Pointer drives: camera parallax.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`prefers-reduced-motion` disables Lenis and the parallax, and drops the star count.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+Push to GitHub and import on Vercel — zero config needed.

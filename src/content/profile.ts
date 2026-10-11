@@ -7,7 +7,7 @@ export const profile = {
   name: "Peerawitch Lertsuksombut",
   role: "Software Engineer",
   tagline: "Full-stack engineer turning messy internal workflows into screens people can actually use.",
-  location: "Bang Sue, Bangkok, Thailand",
+  location: "Bangkok, Thailand",
   email: "L.peerawitch@hotmail.com",
   phone: "088-111-5949",
   github: "https://github.com/khunbright",
@@ -148,11 +148,7 @@ export const experience: Job[] = [
         name: "Stock Manager",
         summary: "internal inventory back-office",
         stack: ["Vue.js", "Laravel", "MySQL"],
-        highlights: [
-          "Built stock tracking and reporting screens that staff used to monitor inventory levels day to day.",
-          "Designed the MySQL schema and handled data operations through phpMyAdmin.",
-          "Gathered requirements from the IT team and turned them into working features.",
-        ],
+        highlights: ["Built stock tracking and reporting screens that staff used to monitor inventory levels day to day.", "Designed the MySQL schema and handled data operations through phpMyAdmin.", "Gathered requirements from the IT team and turned them into working features."],
       },
     ],
   },
@@ -171,23 +167,7 @@ export const education = [
   },
 ];
 
-export const certificates = [
-  "Microsoft Azure Fundamentals (AZ-900)",
-  "Web Development with React: 15 Projects Workshop — Udemy",
-  "Cisco Certified Network Associate (CCNA), 2022 — Jodoi",
-  "Network & Network Security, 2021 — Jodoi",
-];
+export const certificates = ["Microsoft Azure Fundamentals (AZ-900)", "Web Development with React: 15 Projects Workshop — Udemy", "Cisco Certified Network Associate (CCNA), 2022 — Jodoi", "Network & Network Security, 2021 — Jodoi"];
 
 /** Tech keywords that orbit the 3D core in the hero. */
-export const orbitTags = [
-  "TypeScript",
-  "Next.js",
-  "React",
-  "Prisma",
-  "Drizzle",
-  "MySQL",
-  "Node.js",
-  "Tailwind",
-  "Docker",
-  "Playwright",
-];
+export const orbitTags = ["TypeScript", "Next.js", "React", "Prisma", "Drizzle", "MySQL", "Node.js", "Tailwind", "Docker", "Playwright"];

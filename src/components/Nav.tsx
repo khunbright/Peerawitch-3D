@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { profile } from "@/content/profile";
 
@@ -28,9 +29,20 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <a href="#home" className="font-mono text-sm text-white">
-          {profile.name.split(" ")[0].toLowerCase()}
-          <span className="text-sky-400">.dev</span>
+        <a href="#home" className="flex items-center gap-2.5 font-mono text-sm text-white">
+          <Image
+            src="/profile.png"
+            alt=""
+            width={832}
+            height={1248}
+            /* object-position pulls the head out of the full-body cut-out,
+               so the nav reuses the same asset as the About portrait. */
+            className="size-8 shrink-0 rounded-full border border-white/15 bg-white/10 object-cover object-[50%_4%]"
+          />
+          <span>
+            {profile.name.split(" ")[0].toLowerCase()}
+            <span className="text-sky-400">.dev</span>
+          </span>
         </a>
 
         <ul className="hidden gap-6 text-sm text-slate-300 sm:flex">
